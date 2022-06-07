@@ -1,0 +1,44 @@
+<mat-card>
+    <mat-card-title>Novo Usuário</mat-card-title>
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Nome"
+                [(ngModel)]="usuario.nome" name="nome">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Sobrenome"
+                [(ngModel)]="usuario.sobrenome" name="sobrenome">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Email"
+                [(ngModel)]="usuario.email" name="email">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="usuario.dataNascimento" name="dataNascimento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Escolaridade</mat-label>
+            <select matNativeControl [(ngModel)]="usuario.escolaridadeId" name="escolaridadeId">
+                <option *ngFor="let escolaridade of escolaridades" [value]="escolaridade.id">
+                    {{escolaridade.descricao}}
+                </option>
+             </select>
+        </mat-form-field>
+        <div>
+            <button type="button" mat-raised-button (click)="fileInput.click()">Anexar documento</button>
+            <input hidden (change)="onFileSelected($event)" #fileInput type="file">
+            <span class="file-name">{{usuario?.file?.name}}</span>
+        </div>
+    </form>
+    <button mat-raised-button (click)="criarUsuario()" color="primary">
+        Salvar
+    </button>
+    
+    <button mat-raised-button (click)="cancel()">
+        Cancelar
+    </button>
+</mat-card>
+
